@@ -3,4 +3,6 @@ image:
 
 tasks:
   - init: . $HOME/esp/esp-idf/export.sh
-    command: idf.py menuconfig
+    command: |
+      idf.py set-target esp32s2
+      idf.py menuconfig

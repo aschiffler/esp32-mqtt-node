@@ -13,6 +13,7 @@ RUN mkdir -p ~/esp && \
     git clone --recursive https://github.com/espressif/esp-idf.git && \
     cd ~/esp/esp-idf && \
     ./install.sh esp32 && \
+    ./install.sh esp32s2 && \
     rm -rf ~/esp/esp-idf/docs && \
     rm -rf ~/esp/esp-idf/examples
     
