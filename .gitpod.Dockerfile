@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
 USER gitpod
 RUN mkdir -p ~/esp && \
     cd ~/esp && \
-    git clone --recursive https://github.com/espressif/esp-idf.git
+    git clone --recursive https://github.com/espressif/esp-idf.git && \
+    rm -r ~/esp/esp-idf/docs && \
+    rm -r ~/esp/esp-idf/examples && \
 RUN cd ~/esp/esp-idf && \
     ./install.sh esp32
