@@ -2,7 +2,7 @@
 FROM gitpod/workspace-full:2022-05-08-14-31-53
 
 # Install custom tools, runtime, etc.
-python -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 USER gitpod
 RUN  pip install --upgrade platformio
 RUN  pio pkg install -p espressif32@5.1.1
