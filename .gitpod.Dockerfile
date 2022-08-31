@@ -11,5 +11,8 @@ USER gitpod
 RUN mkdir -p ~/esp && \
     cd ~/esp && \
     git clone --recursive https://github.com/espressif/esp-idf.git && \
-RUN cd ~/esp/esp-idf && \
-    ./install.sh esp32
+    cd ~/esp/esp-idf && \
+    ./install.sh esp32 && \
+    rm -rf ~/esp/esp-idf/docs && \
+    rm -rf ~/esp/esp-idf/examples
+    
