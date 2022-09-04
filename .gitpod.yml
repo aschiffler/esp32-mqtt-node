@@ -5,7 +5,6 @@ tasks:
   - name: build
     init: . $HOME/esp/esp-idf/export.sh
     command: |
-      idf.py set-target esp32s2
       idf.py menuconfig
   - name: esp-tool
     init: npx --yes serve

@@ -1,0 +1,14 @@
+{
+  "name": "ESP32-MQTT-NODE",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "build/bootloader/bootloader.bin", "offset": 4096 },
+        { "path": "build/partition_table/partition-table.bin", "offset": 32768 },
+        { "path": "build/cedalo_mqtt_esp32.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
