@@ -2,7 +2,16 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: . $HOME/esp/esp-idf/export.sh
+  - name: build
+    init: . $HOME/esp/esp-idf/export.sh
     command: |
       idf.py set-target esp32s2
       idf.py menuconfig
+  - name: esp-tool
+    init: npx --yes serve
+
+ports:
+  - name: esp-tool
+    description: ESP Tool
+    port: 3000
+    onOpen: open-browser

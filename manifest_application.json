@@ -1,0 +1,14 @@
+{
+  "name": "ESP32-MQTT-NODE",
+  "version": "1.1023",
+  "home_assistant_domain": "slim_player",
+  "funding_url": "https://esphome.io/guides/supporters.html",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "./build/cedalo_mqtt_esp32.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
