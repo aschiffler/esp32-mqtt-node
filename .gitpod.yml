@@ -7,7 +7,8 @@ tasks:
     command: |
       idf.py menuconfig
   - name: esp-tool
-    init: npx --yes serve
+    command: npx --yes serve esp-web-flash
+    openMode: tab-before
 
 ports:
   - name: esp-tool
