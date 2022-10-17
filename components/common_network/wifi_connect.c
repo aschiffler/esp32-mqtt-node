@@ -13,13 +13,13 @@
  */
 
 #include <string.h>
-#include "protocol_examples_common.h"
+#include "network_common.h"
 #include "example_common_private.h"
 #include "esp_log.h"
 
 #if CONFIG_EXAMPLE_CONNECT_WIFI
 
-static const char *TAG = "example_connect";
+static const char *TAG = "network_connect";
 static esp_netif_t *s_example_sta_netif = NULL;
 static SemaphoreHandle_t s_semph_get_ip_addrs = NULL;
 

@@ -5,7 +5,7 @@
  */
 
 #include <string.h>
-#include "protocol_examples_common.h"
+#include "network_common.h"
 #include "example_common_private.h"
 #include "esp_event.h"
 #include "esp_eth.h"

@@ -2,7 +2,7 @@
 #include "esp_system.h"
 #include "esp_log.h"
 #include "esp_netif.h"
-#include "protocol_examples_common.h"
+#include "network_common.h"
 
 #include "lwip/sockets.h"
 #include <lwip/netdb.h>

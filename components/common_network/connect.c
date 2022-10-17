@@ -5,7 +5,7 @@
  */
 
 #include <string.h>
-#include "protocol_examples_common.h"
+#include "network_common.h"
 #include "example_common_private.h"
 #include "sdkconfig.h"
 #include "esp_event.h"
@@ -19,7 +19,7 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-static const char *TAG = "example_common";
+static const char *TAG = "network_common";
 
 #if CONFIG_EXAMPLE_CONNECT_IPV6
 /* types of ipv6 addresses to be displayed on ipv6 events */
@@ -79,7 +79,7 @@ void example_print_all_netif_ips(const char *prefix)
 }
 
 
-esp_err_t example_connect(void)
+esp_err_t network_connect(void)
 {
 #if CONFIG_EXAMPLE_CONNECT_ETHERNET
     if (example_ethernet_connect() != ESP_OK) {

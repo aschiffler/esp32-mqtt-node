@@ -7,7 +7,7 @@
    CONDITIONS OF ANY KIND, either express or implied.
  */
 
-#include "protocol_examples_common.h"
+#include "network_common.h"
 #include "esp_err.h"
 #include "esp_vfs_dev.h"
 #include "driver/uart.h"
