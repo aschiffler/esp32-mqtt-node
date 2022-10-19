@@ -114,10 +114,18 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 }
 
 static void mqtt_start(void){
+    // Create the mqtt client configuration
+    esp_mqtt_client_config_t mqtt_cfg = {
+            .broker.address.uri = "",
+            .broker.verification.certificate = (const char *)mqtt_broker_cert_pem_start,
+            .session.protocol_ver = MQTT_PROTOCOL_V_5,
+            .network.disable_auto_reconnect = true,
+            .credentials.username = "123",
+            .credentials.authentication.password = "456",
+    };
     // Get broker address from STDIN
     char line[128];
-    if (strcmp(mqtt_cfg.broker.address.uri, "FROM_STDIN") == 0) {
-        int count = 0;
+    int count = 0;
         printf("Please enter url of mqtt broker\n");
         while (count < 128) {
             int c = fgetc(stdin);
@@ -132,21 +140,6 @@ static void mqtt_start(void){
         }
         mqtt_cfg.broker.address.uri = line;
         printf("Broker url: %s\n", line);
-    } else {
-        ESP_LOGE(TAG, "Configuration mismatch: wrong broker url");
-        abort();
-    }
-    // Create the mqtt client configuration
-    const esp_mqtt_client_config_t mqtt_cfg = {
-        .broker = {
-            .address.uri = CONFIG_BROKER_URI,
-            .verification.certificate = (const char *)mqtt_broker_cert_pem_start
-            .session.protocol_ver = MQTT_PROTOCOL_V_5,
-            .network.disable_auto_reconnect = true,
-            .credentials.username = "123",
-            .credentials.authentication.password = "456",
-        },
-    };
     // Configure the mqtt client
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
