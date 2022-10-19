@@ -120,26 +120,74 @@ static void mqtt_start(void){
             .broker.verification.certificate = (const char *)mqtt_broker_cert_pem_start,
             .session.protocol_ver = MQTT_PROTOCOL_V_5,
             .network.disable_auto_reconnect = true,
-            .credentials.username = "123",
-            .credentials.authentication.password = "456",
     };
+    
     // Get broker address from STDIN
     char line[128];
     int count = 0;
-        printf("Please enter url of mqtt broker\n");
-        while (count < 128) {
-            int c = fgetc(stdin);
-            if (c == '\n') {
-                line[count] = '\0';
-                break;
-            } else if (c > 0 && c < 127) {
-                line[count] = c;
-                ++count;
-            }
-            vTaskDelay(10 / portTICK_PERIOD_MS);
+    printf("Please enter url of mqtt broker\n");
+    while (count < 128) {
+        int c = fgetc(stdin);
+        if (c == '\n') {
+            line[count] = '\0';
+            break;
+        } else if (c > 0 && c < 127) {
+            line[count] = c;
+            ++count;
         }
-        mqtt_cfg.broker.address.uri = line;
-        printf("Broker url: %s\n", line);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+    mqtt_cfg.broker.address.uri = line;
+    printf("Broker url: %s\n", line);
+    
+    // Get broker address from STDIN
+    count = 0;
+    printf("Please enter url of mqtt broker\n");
+    while (count < 128) {
+        int c = fgetc(stdin);
+        if (c == '\n') {
+            line[count] = '\0';
+            break;
+        } else if (c > 0 && c < 127) {
+            line[count] = c;
+            ++count;
+        }
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+    mqtt_cfg.broker.address.uri = line;
+    
+    // Get username from STDIN
+    count = 0;
+    printf("Please enter username of mqtt broker\n");
+    while (count < 128) {
+        int c = fgetc(stdin);
+        if (c == '\n') {
+            line[count] = '\0';
+            break;
+        } else if (c > 0 && c < 127) {
+            line[count] = c;
+            ++count;
+        }
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+    mqtt_cfg.credentials.username = line;
+    
+    // Get username from STDIN
+    count = 0;
+    printf("Please enter password of mqtt broker\n");
+    while (count < 128) {
+        int c = fgetc(stdin);
+        if (c == '\n') {
+            line[count] = '\0';
+            break;
+        } else if (c > 0 && c < 127) {
+            line[count] = c;
+            ++count;
+        }
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+    mqtt_cfg.credentials.authentication.password = line;
+    
     // Configure the mqtt client
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
