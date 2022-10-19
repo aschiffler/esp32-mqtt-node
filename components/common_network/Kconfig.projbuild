@@ -12,7 +12,7 @@ menu "Internet Connection Configuration"
     if EXAMPLE_CONNECT_WIFI
         config EXAMPLE_WIFI_SSID_PWD_FROM_STDIN
             bool "Get ssid and password from stdin"
-            default n
+            default y
             help
                 Give the WiFi SSID and password from stdin.
 

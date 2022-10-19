@@ -4,6 +4,7 @@
 .vscode/launch.json
 .vscode/ipch
 esp-web-flash/build*
+build
 sdkconfig
 sdkconfig.old
 *.bin

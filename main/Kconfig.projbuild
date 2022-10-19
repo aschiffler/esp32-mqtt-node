@@ -1,11 +1,5 @@
 menu "MQTT Configuration"
 
-    config BROKER_URI
-        string "Broker URL"
-        default "mqtts://mqtt.eclipseprojects.io:8883"
-        help
-            URL of an mqtt broker which this example connects to.
-
     config BROKER_CERTIFICATE_OVERRIDE
         string "Broker certificate override"
         default ""
