@@ -16,5 +16,8 @@ menu "MQTT Configuration"
         # Here we configure the data size to send and to be expected in the python script
         int
         default 20000
+    config USER_INPUT_LENGTH
+        int
+        default 128
 
 endmenu
