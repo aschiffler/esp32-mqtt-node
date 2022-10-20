@@ -22,11 +22,7 @@
 
 static const char *TAG = "MQTTS_EXAMPLE";
 
-#if CONFIG_BROKER_CERTIFICATE_OVERRIDDEN == 1
-static const uint8_t mqtt_broker_cert_pem_start[]  = "-----BEGIN CERTIFICATE-----\n" CONFIG_BROKER_CERTIFICATE_OVERRIDE "\n-----END CERTIFICATE-----";
-#else
 extern const uint8_t mqtt_broker_cert_pem_start[]   asm("_binary_mqtt_broker_cert_pem_start");
-#endif
 extern const uint8_t mqtt_broker_cert_pem_end[]   asm("_binary_mqtt_broker_cert_pem_end");
 
 //
@@ -57,7 +53,6 @@ static void send_binary(esp_mqtt_client_handle_t client)
  */
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
-    ESP_LOGD(TAG, "Event dispatched from event loop base=%s, event_id=%d", base, event_id);
     esp_mqtt_event_handle_t event = event_data;
     esp_mqtt_client_handle_t client = event->client;
     int msg_id;
@@ -79,7 +74,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
     case MQTT_EVENT_SUBSCRIBED:
         ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
-        msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "Cedalo is awesome", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_UNSUBSCRIBED:
@@ -116,15 +111,11 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-esp_err_t mqtt_init(void){
+esp_err_t mqtt_start(void){
     // Create the mqtt client configuration
     esp_mqtt_client_config_t mqtt_cfg = {
-            .credentials.authentication.password = "password",
-            .credentials.username = "user",
-            .credentials.client_id = "ESP32-cedalo"
-            //.broker.verification.certificate = (const char *)mqtt_broker_cert_pem_start,
-            //.session.protocol_ver = MQTT_PROTOCOL_V_5,
-            //.session.protocol_ver = MQTT_PROTOCOL_V_3_1_1
+            .credentials.client_id = "ESP32-cedalo",
+            .session.protocol_ver = MQTT_PROTOCOL_V_3_1_1 // MQTT_PROTOCOL_V_5
     };
   
     // Get broker address from STDIN
@@ -144,6 +135,13 @@ esp_err_t mqtt_init(void){
     }
     mqtt_cfg.broker.address.uri = (char*)calloc(count+1,sizeof(char*));
     strncpy((char*)mqtt_cfg.broker.address.uri, buf, count+1);
+    // Check for TLS to enable verififcation
+    char *scheme = strtok(buf,":");
+    printf("Scheme: %S\n",scheme);
+    if (strcmp(scheme,"mqtts")==0 || strcmp(scheme,"wss")==0){
+       mqtt_cfg.broker.verification.certificate = (const char *)mqtt_broker_cert_pem_start;
+       ESP_LOGI(TAG,"TLS verification enabled");
+    }
     
     // Get username from STDIN
     printf("Please enter username:\n");
@@ -180,7 +178,7 @@ esp_err_t mqtt_init(void){
     strncpy((char*)mqtt_cfg.credentials.authentication.password, buf, count+1);
     
     // Configure the mqtt client and try to connect
-    printf("Connect to: %s\n with client-id: %s\n Username: %s\n Password: ****",
+    ESP_LOGI(TAG,"Connecting to: %s\n with client-id: %s\n Username: %s\n Password: ****\n",
      mqtt_cfg.broker.address.uri,
      mqtt_cfg.credentials.client_id,
      mqtt_cfg.credentials.username);
@@ -206,12 +204,13 @@ void app_main(void)
     esp_log_level_set("network_connect", ESP_LOG_INFO);
     esp_log_level_set("network_common", ESP_LOG_INFO);
     esp_log_level_set("MQTTS_EXAMPLE", ESP_LOG_VERBOSE);
-    esp_log_level_set("esp-tls", ESP_LOG_VERBOSE);
+    esp_log_level_set("esp-tls", ESP_LOG_DEBUG);
+    esp_log_level_set("esp-tls-mbedtls", ESP_LOG_DEBUG);
     
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_ERROR_CHECK(network_connect());
-    ESP_ERROR_CHECK(mqtt_init());
+    ESP_ERROR_CHECK(mqtt_start());
     
 }
