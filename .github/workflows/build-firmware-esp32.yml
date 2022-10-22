@@ -32,3 +32,23 @@ jobs:
       run: |
         . ~/esp/esp-idf/export.sh
         idf.py build
+    - name: Copy-ESP-Web-Files
+      run: |
+        mkdir public
+        mkdir -p public/build/bootloader
+        mkdir -p public/build/partition_table
+        cp esp-web-flash/index.html public/
+        cp esp-web-flash/esp-tool-flash.json public/
+        cp esp-web-flash/build/bootloader/bootloader.bin public/build/bootloader
+        cp esp-web-flash/build/partition_table/partition-table.bin public/build/partition_table/partition-table.bin
+        cp esp-web-flash/build/cedalo_mqtt_esp32.bin public/build/cedalo_mqtt_esp32.bin
+        ls -l public
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'public'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
