@@ -4,6 +4,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - uses: actions/checkout@v3
       with:
@@ -44,11 +47,10 @@ jobs:
         cp esp-web-flash/build/cedalo_mqtt_esp32.bin public/build/cedalo_mqtt_esp32.bin
         ls -l public
     - name: Setup Pages
-      uses: actions/configure-pages@v2
+      uses: actions/configure-pages@v2.1.1
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
           path: 'public'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v1
+    - name: Deploy GitHub Pages site
+      uses: actions/deploy-pages@v1.2.2
