@@ -1,5 +1,4 @@
 name: Create Firmware for ESP32
-
 on:
   push:
     branches: master
