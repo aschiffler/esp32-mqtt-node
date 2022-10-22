@@ -4,10 +4,14 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       id-token: write
       contents: read
       pages: write
+      deployments: write
     steps:
     - uses: actions/checkout@v3
       with:
@@ -49,4 +53,5 @@ jobs:
       with:
           path: 'public'
     - name: Deploy GitHub Pages site
+      id: deployment
       uses: actions/deploy-pages@v1.2.2
