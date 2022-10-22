@@ -28,6 +28,7 @@ jobs:
         ./install.sh esp32s2
         sudo rm -rf ~/esp/esp-idf/docs
         sudo rm -rf ~/esp/esp-idf/examples
+        . ./export.sh
     - name: build-firmware
       run: |
         idf.py build
