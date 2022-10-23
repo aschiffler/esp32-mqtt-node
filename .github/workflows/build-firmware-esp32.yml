@@ -46,6 +46,19 @@ jobs:
         cp esp-web-flash/build/partition_table/partition-table.bin public/build/partition_table/partition-table.bin
         cp esp-web-flash/build/cedalo_mqtt_esp32.bin public/build/cedalo_mqtt_esp32.bin
         ls -l public
+    - name: get-short-sha
+      uses: benjlevesque/short-sha@v2
+      id: short-sha
+      with:
+        length: 7
+    - name: set-version
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: |
+          public/esp-tool-flash.json
+          public/index.html
+      env:
+          VERSION: ${{ steps.get-short-sha.outputs.sha }}
     - name: Setup Pages
       uses: actions/configure-pages@v2.1.1
     - name: Upload artifact

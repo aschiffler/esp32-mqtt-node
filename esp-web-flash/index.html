@@ -18,21 +18,15 @@
         line-height: 1.4;
       }
       .content {
-        max-width: 600px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 12px;
       }
-      h2 {
+      h1 {
         margin-top: 2em;
-      }
-      h3 {
-        margin-top: 1.5em;
-      }
-      a {
-        color: #03a9f4;
-      }
-      .invisible {
-        visibility: hidden;
+        color: #F3771C;
+        border-bottom: 3px solid #F3771C;
+        text-align: left;
       }
       .hidden {
         display: none;
@@ -40,52 +34,33 @@
       esp-web-install-button[install-unsupported] {
         visibility: inherit;
       }
-      .content pre {
-        max-width: 100%;
-        overflow-y: scroll;
-      }
       .footer {
-        margin-top: 24px;
-        border-top: 1px solid #ccc;
+        margin-top: 50px;
+        border-top: 3px solid #F3771C;
         padding-top: 24px;
-        text-align: center;
-      }
-      .footer .initiative {
-        font-style: italic;
-        margin-top: 16px;
-      }
-      table {
-        border-spacing: 0;
-      }
-      td {
-        padding: 8px;
-        border-bottom: 1px solid #ccc;
-      }
-      .radios li {
-        list-style: none;
-        line-height: 2em;
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #333;
-          color: #fff;
-        }
-        a {
-          color: #58a6ff;
-        }
+        text-align: left;
       }
     </style>
     <script type="module" src="https://unpkg.com/esp-web-tools@9.0.3/dist/web/install-button.js?module"></script>
   </head>
   <body>
     <div class="content">
-      <h1>ESP Tool</h1>
-      <p class="button-row" align="center">
-        <esp-web-install-button manifest="/esp-tool-flash.json"></esp-web-install-button>
+      <h1>ESP32 MQTT Node</h1>
+      <p><img src="esp32-mqtt-node.png">
+        Use this web site to flash your ESP device.
+        <br>
+        You need to connect your ESP device via USB cable to the Computer showing this web site.
       </p>
-
+      <p>
+        <esp-web-install-button manifest="esp-tool-flash.json">
+          <button slot="activate">Click here to flash the firmware to your ESP device</button>
+        </esp-web-install-button>
+      <p style="font-size: 0.7em">
+        Version: #{VERSION}#, Firmware for demonstration purpose
+      </p>
       <div class="footer">
-        ESP Tool is powered by <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a>.
+        Build your own firmware rigth in your internet browser
+        <br><a href="https://gitpod.io/#https://github.com/aschiffler/esp32-mqtt-node"><img src="https://gitpod.io/button/open-in-gitpod.svg"></a>.
     </div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 {
-  "name": "ESP32-MQTT-NODE",
-  "version": "1.0",
+  "name": "Cedalo ESP32-MQTT-NODE",
+  "version": "#{VERSION}#",
   "builds": [
     {
       "chipFamily": "ESP32",
