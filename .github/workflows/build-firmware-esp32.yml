@@ -46,7 +46,7 @@ jobs:
         cp esp-web-flash/build/partition_table/partition-table.bin public/build/partition_table/partition-table.bin
         cp esp-web-flash/build/cedalo_mqtt_esp32.bin public/build/cedalo_mqtt_esp32.bin
         ls -l public
-    - uses: benjlevesque/short-sha@v2
+    - uses: benjlevesque/short-sha@v1.2
       id: short-sha
       with:
         length: 7
