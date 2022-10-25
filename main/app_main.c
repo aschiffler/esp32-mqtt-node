@@ -73,7 +73,6 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 esp_err_t mqtt_start(void){
     // Create the mqtt client configuration
     esp_mqtt_client_config_t mqtt_cfg = {
-            .credentials.client_id = "ESP32-cedalo",
             .session.protocol_ver = MQTT_PROTOCOL_V_3_1_1 // MQTT_PROTOCOL_V_5
     };
     // Set some properties which are available with version 5.0
