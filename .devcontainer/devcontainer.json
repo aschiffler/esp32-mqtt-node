@@ -3,5 +3,6 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": ". $HOME/esp/esp-idf/export.sh"
+  "postStartCommand": ". $HOME/esp/esp-idf/export.sh",
+  "postAttachCommand": "npx --yes serve esp-web-flash",
 }
