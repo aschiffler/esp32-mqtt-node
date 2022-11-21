@@ -1,6 +1,7 @@
 {
   "name": "ESP-dev",
   "build": {
-    "dockerfile": "Dockerfile",
+    "dockerfile": "Dockerfile"
   },
+  "postCreateCommand": ". $HOME/esp/esp-idf/export.sh"
 }
