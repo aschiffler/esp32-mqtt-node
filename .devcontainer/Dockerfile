@@ -14,3 +14,4 @@ RUN mkdir -p ~/esp && \
     ./install.sh esp32s2 && \
     rm -rf ~/esp/esp-idf/docs && \
     rm -rf ~/esp/esp-idf/examples
+ENTRYPOINT [". $HOME/esp/esp-idf/export.sh"]
